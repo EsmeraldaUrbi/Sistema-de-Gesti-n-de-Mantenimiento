@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Inventario de Repuestos</h1>
+<div style="margin-bottom: 20px;">
+    <a href="/repuestos/nuevo" 
+       style="display:inline-block; background-color:#007bff; color:white; padding:10px 15px; border-radius:6px; text-decoration:none; margin-right:10px;">
+        ➕ Registrar Nuevo Repuesto
+    </a>
+</div>
+
+<!-- Resumen de stock -->
+<p style="margin-bottom:20px;">
+    Total de repuestos: <b>{{ repuestos|length }}</b> |
+    En alerta: <b>{{ repuestos | selectattr('estado_stock', 'equalto', 'danger') | list | length }}</b>
+</p>
+
+<!-- Tabla de repuestos -->
+<table style="width:100%; border-collapse:collapse; background:white; border-radius:8px; box-shadow:0 0 6px rgba(0,0,0,0.1);">
+    <thead>
+        <tr style="background-color:#e3e3e3;">
+            <th style="padding:10px;">ID</th>
+            <th>Nombre</th>
+            <th>Tipo</th>
+            <th>Cantidad</th>
+            <th>Stock mínimo</th>
+            <th>Estado</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for r in repuestos %}
+        {% if r.estado_stock == 'danger' %}
+        <tr class="{{ r.estado_stock }}" style="background-color: #feb2b2; border-bottom:1px solid #ddd;">
+        {% elif r.estado_stock == 'warning' %}
+        <tr class="{{ r.estado_stock }}" style="background-color: #fefcbf; border-bottom:1px solid #ddd;">
+        {% else %}
+        <tr class="{{ r.estado_stock }}" style="background-color: #c6f6d5; border-bottom:1px solid #ddd;">
+        {% endif %}
+            <td style="padding:10px;">{{ r.id }}</td>
+            <td>{{ r.nombre }}</td>
+            <td>{{ r.tipo }}</td>
+            <td>{{ r.cantidad }}</td>
+            <td>{{ r.stock_minimo }}</td>
+            <td><strong>{{ r.mensaje_stock }}</strong></td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

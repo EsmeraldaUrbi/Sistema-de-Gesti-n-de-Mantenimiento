@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Registro de Fallas</h1>
+
+<form method="POST" style="background:#fff; padding:20px; border-radius:10px; width:450px; box-shadow:0 0 8px rgba(0,0,0,0.1);">
+    <label for="id_equipo"><b>Equipo:</b></label>
+    <select name="id_equipo" required style="width:100%; padding:8px; margin-top:5px;">
+        <option value="">Seleccione un equipo...</option>
+        {% for e in equipos %}
+        <option value="{{ e.id }}">{{ e.nombre }}</option>
+        {% endfor %}
+    </select>
+
+    <label for="descripcion"><b>Descripción de la falla:</b></label>
+    <textarea name="descripcion" rows="3" required style="width:100%; padding:8px; margin-top:5px;"></textarea>
+
+    <label for="prioridad"><b>Prioridad:</b></label>
+    <select name="prioridad" required style="width:100%; padding:8px; margin-top:5px;">
+        <option value="Alta">Alta (2 días)</option>
+        <option value="Media">Media (2 semanas)</option>
+        <option value="Baja">Baja (2 meses)</option>
+    </select>
+
+    <br><br>
+    <button type="submit" style="background-color:#007bff; color:white; padding:10px; border:none; border-radius:5px; cursor:pointer;">
+        Registrar Falla
+    </button>
+</form>
+
+{% endblock %}

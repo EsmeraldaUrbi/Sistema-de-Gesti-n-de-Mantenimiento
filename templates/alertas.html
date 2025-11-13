@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+{% block content %}
+<style>
+    h1 {
+        color: #333;
+        margin-bottom: 20px;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        background: white;
+        border-radius: 8px;
+        box-shadow: 0 0 6px rgba(0, 0, 0, 0.1);
+        margin-top: 20px;
+    }
+
+    th, td {
+        padding: 10px;
+        border-bottom: 1px solid #ccc;
+        text-align: left;
+    }
+
+    th {
+        background-color: #e3e3e3;
+    }
+
+    /* Colores por tipo de alerta */
+    .falla-nueva {
+        background-color: #c6f6d5;  /* Verde */
+    }
+
+    .tarea-vencida {
+        background-color: #feb2b2;  /* Rojo */
+    }
+
+    .tarea-proxima {
+        background-color: #fff3cd;  /* Amarillo claro */
+    }
+
+    .stock-critico {
+        background-color: #fefcbf;  /* Amarillo */
+    }
+
+    .sin-alerta {
+        background-color: #edf2f7;  /* Gris */
+    }
+
+    p {
+        font-size: 16px;
+        margin-top: 20px;
+    }
+</style>
+
+<h1>Centro de Notificaciones</h1>
+
+{% if alertas %}
+<table>
+    <thead>
+        <tr>
+            <th>Tipo</th>
+            <th>Mensaje</th>
+            <th>Fecha</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for a in alertas %}
+            {% if a.tipo == 'Tarea vencida' %}
+                {% set clase = 'tarea-vencida' %}
+            {% elif a.tipo == 'Tarea próxima a vencer' %}
+                {% set clase = 'tarea-proxima' %}
+            {% elif a.tipo == 'Stock crítico' %}
+                {% set clase = 'stock-critico' %}
+            {% elif a.tipo == 'Falla nueva' %}
+                {% set clase = 'falla-nueva' %}
+            {% else %}
+                {% set clase = 'sin-alerta' %}
+            {% endif %}
+
+            <tr class="{{ clase }}">
+                <td><b>{{ a.tipo }}</b></td>
+                <td>{{ a.mensaje }}</td>
+                <td>{{ a.fecha }}</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% else %}
+<p>No hay alertas recientes 😊</p>
+{% endif %}
+{% endblock %}

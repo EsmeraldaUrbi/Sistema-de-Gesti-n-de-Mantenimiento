@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block content %}
+<style>
+form {
+    background: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 8px rgba(0,0,0,0.1);
+    max-width: 500px;
+}
+label { display: block; margin-top: 10px; }
+input { width: 100%; padding: 8px; margin-top: 5px; }
+button {
+    margin-top: 15px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+button:hover { background-color: #0056b3; }
+</style>
+
+<h1>Registrar Nuevo Repuesto</h1>
+
+<form method="POST">
+    <label>Nombre del repuesto:</label>
+    <input type="text" name="nombre" required>
+
+    <label>Tipo o categoría:</label>
+    <input type="text" name="tipo" required>
+
+    <label>Cantidad inicial:</label>
+    <input type="number" name="cantidad" min="0" required>
+
+    <label>Stock mínimo:</label>
+    <input type="number" name="stock_minimo" min="0" required>
+
+    <button type="submit">Registrar Repuesto</button>
+</form>
+
+<a href="/repuestos">← Volver al inventario</a>
+{% endblock %}
