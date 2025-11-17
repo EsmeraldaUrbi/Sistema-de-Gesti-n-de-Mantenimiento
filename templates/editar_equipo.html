@@ -1,65 +1,61 @@
 {% extends "base.html" %}
 {% block content %}
-<h1>Editar Equipo</h1>
 
-<style>
-form {
-    background: #fff;
-    padding: 20px;
-    border-radius: 10px;
-    max-width: 500px;
-    box-shadow: 0 0 8px rgba(0,0,0,0.1);
-}
-input, select {
-    width: 100%;
-    padding: 8px;
-    margin-top: 5px;
-}
-button {
-    margin-top: 15px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    padding: 10px 15px;
-    border-radius: 5px;
-}
-button:hover { background-color: #0056b3; }
-</style>
+<h1 class="page-title">Editar Equipo</h1>
 
-<form method="POST">
-    
-    <label>Nombre:</label>
-    <input type="text" name="nombre" value="{{ equipo.nombre }}" required>
+<div class="card-form">
 
-    <label>Tipo:</label>
-    <select name="id_tipo" required>
-        {% for t in tipos %}
-            <option value="{{ t.id }}" {% if t.id == equipo.id_tipo %}selected{% endif %}>
-                {{ t.nombre }}
-            </option>
-        {% endfor %}
-    </select>
+    <form method="POST">
 
-    <label>Marca:</label>
-    <input type="text" name="marca" value="{{ equipo.marca }}">
+        <div class="form-group">
+            <label>Nombre:</label>
+            <input type="text" name="nombre" value="{{ equipo.nombre }}" required>
+        </div>
 
-    <label>Modelo:</label>
-    <input type="text" name="modelo" value="{{ equipo.modelo }}">
+        <div class="form-group">
+            <label>Tipo:</label>
+            <select name="id_tipo" required>
+                {% for t in tipos %}
+                <option value="{{ t.id }}" {% if t.id == equipo.id_tipo %}selected{% endif %}>
+                    {{ t.nombre }}
+                </option>
+                {% endfor %}
+            </select>
+        </div>
 
-    <label>Ubicación:</label>
-    <input type="text" name="ubicacion" value="{{ equipo.ubicacion }}">
+        <div class="form-group">
+            <label>Marca:</label>
+            <input type="text" name="marca" value="{{ equipo.marca }}">
+        </div>
 
-    <label>Estado:</label>
-    <select name="estado">
-        <option value="Operativo" {% if equipo.estado == "Operativo" %}selected{% endif %}>Operativo</option>
-        <option value="En mantenimiento" {% if equipo.estado == "En mantenimiento" %}selected{% endif %}>En mantenimiento</option>
-        <option value="Con falla" {% if equipo.estado == "Con falla" %}selected{% endif %}>Con falla</option>
-        <option value="Fuera de servicio" {% if equipo.estado == "Fuera de servicio" %}selected{% endif %}>Fuera de servicio</option>
-    </select>
+        <div class="form-group">
+            <label>Modelo:</label>
+            <input type="text" name="modelo" value="{{ equipo.modelo }}">
+        </div>
 
-    <button type="submit">Guardar cambios</button>
-</form>
+        <div class="form-group">
+            <label>Ubicación:</label>
+            <input type="text" name="ubicacion" value="{{ equipo.ubicacion }}">
+        </div>
 
-<a href="/">&larr; Volver</a>
+        <div class="form-group">
+            <label>Estado:</label>
+            <select name="estado">
+                <option value="Operativo" {% if equipo.estado == "Operativo" %}selected{% endif %}>Operativo</option>
+                <option value="En mantenimiento" {% if equipo.estado == "En mantenimiento" %}selected{% endif %}>En mantenimiento</option>
+                <option value="Con falla" {% if equipo.estado == "Con falla" %}selected{% endif %}>Con falla</option>
+                <option value="Fuera de servicio" {% if equipo.estado == "Fuera de servicio" %}selected{% endif %}>Fuera de servicio</option>
+            </select>
+        </div>
+
+        <button type="submit" class="btn btn-primary">
+            Guardar cambios
+        </button>
+
+    </form>
+
+    <a href="/" class="volver-link">← Volver</a>
+
+</div>
 
 {% endblock %}

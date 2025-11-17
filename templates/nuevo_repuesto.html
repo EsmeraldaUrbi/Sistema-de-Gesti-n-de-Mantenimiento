@@ -1,44 +1,40 @@
 {% extends "base.html" %}
 {% block content %}
-<style>
-form {
-    background: #fff;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 0 8px rgba(0,0,0,0.1);
-    max-width: 500px;
-}
-label { display: block; margin-top: 10px; }
-input { width: 100%; padding: 8px; margin-top: 5px; }
-button {
-    margin-top: 15px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    padding: 10px 15px;
-    border-radius: 5px;
-    cursor: pointer;
-}
-button:hover { background-color: #0056b3; }
-</style>
 
-<h1>Registrar Nuevo Repuesto</h1>
+<h1 class="page-title">Registrar Nuevo Repuesto</h1>
 
-<form method="POST">
-    <label>Nombre del repuesto:</label>
-    <input type="text" name="nombre" required>
+<div class="card-form">
 
-    <label>Tipo o categoría:</label>
-    <input type="text" name="tipo" required>
+    <form method="POST">
 
-    <label>Cantidad inicial:</label>
-    <input type="number" name="cantidad" min="0" required>
+        <div class="form-group">
+            <label>Nombre del repuesto:</label>
+            <input type="text" name="nombre" required>
+        </div>
 
-    <label>Stock mínimo:</label>
-    <input type="number" name="stock_minimo" min="0" required>
+        <div class="form-group">
+            <label>Tipo o categoría:</label>
+            <input type="text" name="tipo" required>
+        </div>
 
-    <button type="submit">Registrar Repuesto</button>
-</form>
+        <div class="form-group">
+            <label>Cantidad inicial:</label>
+            <input type="number" name="cantidad" min="0" required>
+        </div>
 
-<a href="/repuestos">← Volver al inventario</a>
+        <div class="form-group">
+            <label>Stock mínimo:</label>
+            <input type="number" name="stock_minimo" min="0" required>
+        </div>
+
+        <button type="submit" class="btn btn-primary">
+            Registrar Repuesto
+        </button>
+
+    </form>
+
+    <a href="/repuestos" class="volver-link">← Volver al inventario</a>
+
+</div>
+
 {% endblock %}

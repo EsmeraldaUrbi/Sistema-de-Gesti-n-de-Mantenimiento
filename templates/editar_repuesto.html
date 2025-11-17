@@ -1,24 +1,40 @@
 {% extends "base.html" %}
 {% block content %}
 
-<h1>Editar repuesto</h1>
+<h1 class="page-title">Editar repuesto</h1>
 
-<form method="POST" style="max-width:500px; background:#fff; padding:20px; border-radius:10px;">
-    <label>Nombre:</label>
-    <input type="text" name="nombre" value="{{ repuesto.nombre }}" required>
+<div class="card-form">
 
-    <label>Tipo:</label>
-    <input type="text" name="tipo" value="{{ repuesto.tipo }}" required>
+    <form method="POST">
 
-    <label>Cantidad:</label>
-    <input type="number" name="cantidad" min="0" value="{{ repuesto.cantidad }}" required>
+        <div class="form-group">
+            <label>Nombre:</label>
+            <input type="text" name="nombre" value="{{ repuesto.nombre }}" required>
+        </div>
 
-    <label>Stock mínimo:</label>
-    <input type="number" name="stock_minimo" min="0" value="{{ repuesto.stock_minimo }}" required>
+        <div class="form-group">
+            <label>Tipo:</label>
+            <input type="text" name="tipo" value="{{ repuesto.tipo }}" required>
+        </div>
 
-    <button type="submit">Guardar cambios</button>
-</form>
+        <div class="form-group">
+            <label>Cantidad:</label>
+            <input type="number" name="cantidad" min="0" value="{{ repuesto.cantidad }}" required>
+        </div>
 
-<a href="/repuestos">← Volver</a>
+        <div class="form-group">
+            <label>Stock mínimo:</label>
+            <input type="number" name="stock_minimo" min="0" value="{{ repuesto.stock_minimo }}" required>
+        </div>
+
+        <button type="submit" class="btn btn-primary">
+            Guardar cambios
+        </button>
+
+    </form>
+
+    <a href="/repuestos" class="volver-link">← Volver</a>
+
+</div>
 
 {% endblock %}

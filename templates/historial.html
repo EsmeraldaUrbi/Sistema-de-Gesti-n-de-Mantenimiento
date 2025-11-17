@@ -1,43 +1,48 @@
 {% extends "base.html" %}
 {% block content %}
-<h1>Historial de Mantenimientos</h1>
 
-<!-- Botones de exportación -->
-<div style="margin-bottom:20px;">
-    <a href="/exportar_historial" 
-       style="display:inline-block; background-color:#28a745; color:white; padding:10px 15px; border-radius:5px; text-decoration:none;">
+<h1 class="page-title">Historial de Mantenimientos</h1>
+
+<!-- Botón de exportación -->
+<div class="boton-superior">
+    <a href="/exportar_historial" class="btn-principal btn-success">
         Exportar historial a CSV
     </a>
 </div>
 
 {% if historial %}
-<table style="width:100%; border-collapse:collapse; background:white; border-radius:8px; box-shadow:0 0 6px rgba(0,0,0,0.1);">
-    <thead>
-        <tr style="background-color:#e3e3e3;">
-            <th style="padding:10px;">ID</th>
-            <th>Equipo</th>
-            <th>Prioridad</th>
-            <th>Fecha creación</th>
-            <th>Fecha cierre</th>
-            <th>Descripción</th>
-            <th>Observaciones</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for h in historial %}
-        <tr style="border-bottom:1px solid #ccc;">
-            <td style="padding:10px;">{{ h.id }}</td>
-            <td>{{ h.equipo }}</td>
-            <td>{{ h.prioridad }}</td>
-            <td>{{ h.fecha_creacion.strftime('%d/%m/%Y') }}</td>
-            <td>{{ h.fecha_cierre.strftime('%d/%m/%Y') if h.fecha_cierre else '-' }}</td>
-            <td>{{ h.descripcion or '-' }}</td>
-            <td>{{ h.observaciones or '-' }}</td>
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
+<div class="table-container">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Equipo</th>
+                <th>Prioridad</th>
+                <th>Fecha creación</th>
+                <th>Fecha cierre</th>
+                <th>Descripción</th>
+                <th>Observaciones</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for h in historial %}
+            <tr>
+                <td>{{ h.id }}</td>
+                <td>{{ h.equipo }}</td>
+                <td>{{ h.prioridad }}</td>
+                <td>{{ h.fecha_creacion.strftime('%d/%m/%Y') }}</td>
+                <td>{{ h.fecha_cierre.strftime('%d/%m/%Y') if h.fecha_cierre else '-' }}</td>
+                <td>{{ h.descripcion or '-' }}</td>
+                <td>{{ h.observaciones or '-' }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
 {% else %}
-    <p style="margin-top:20px;">No hay tareas completadas registradas todavía.</p>
+<p style="margin-top:20px;">No hay tareas completadas registradas todavía.</p>
 {% endif %}
+
 {% endblock %}

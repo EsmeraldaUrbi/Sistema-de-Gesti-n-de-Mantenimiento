@@ -1,52 +1,50 @@
 {% extends "base.html" %}
 {% block content %}
-<style>
-form {
-    background: #fff;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 0 8px rgba(0,0,0,0.1);
-    max-width: 500px;
-}
-label { display: block; margin-top: 10px; }
-input, select { width: 100%; padding: 8px; margin-top: 5px; }
-button {
-    margin-top: 15px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    padding: 10px 15px;
-    border-radius: 5px;
-    cursor: pointer;
-}
-button:hover { background-color: #0056b3; }
-</style>
 
-<h1>Registrar Nuevo Equipo</h1>
+<h1 class="page-title">Registrar Nuevo Equipo</h1>
 
-<form method="POST">
-    <label>Nombre del equipo:</label>
-    <input type="text" name="nombre" required>
+<div class="card-form">
 
-    <label>Tipo de equipo:</label>
-    <select name="id_tipo" required>
-        <option value="">Seleccione un tipo...</option>
-        {% for t in tipos %}
-        <option value="{{ t.id }}">{{ t.nombre }}</option>
-        {% endfor %}
-    </select>
+    <form method="POST">
 
-    <label>Marca:</label>
-    <input type="text" name="marca">
+        <div class="form-group">
+            <label>Nombre del equipo:</label>
+            <input type="text" name="nombre" required>
+        </div>
 
-    <label>Modelo:</label>
-    <input type="text" name="modelo">
+        <div class="form-group">
+            <label>Tipo de equipo:</label>
+            <select name="id_tipo" required>
+                <option value="">Seleccione un tipo...</option>
+                {% for t in tipos %}
+                <option value="{{ t.id }}">{{ t.nombre }}</option>
+                {% endfor %}
+            </select>
+        </div>
 
-    <label>Ubicación:</label>
-    <input type="text" name="ubicacion">
+        <div class="form-group">
+            <label>Marca:</label>
+            <input type="text" name="marca">
+        </div>
 
-    <button type="submit">Registrar Equipo</button>
-</form>
+        <div class="form-group">
+            <label>Modelo:</label>
+            <input type="text" name="modelo">
+        </div>
 
-<a href="/">← Volver al inventario</a>
+        <div class="form-group">
+            <label>Ubicación:</label>
+            <input type="text" name="ubicacion">
+        </div>
+
+        <button type="submit" class="btn btn-primary">
+            Registrar Equipo
+        </button>
+
+    </form>
+
+    <a href="/" class="volver-link">← Volver al inventario</a>
+
+</div>
+
 {% endblock %}

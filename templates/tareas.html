@@ -1,74 +1,74 @@
 {% extends "base.html" %}
 {% block content %}
-<h1>Tareas Correctivas</h1>
 
-<style>
-/* row background colors for task states */
-tr.ok { background-color: #c6f6d5; }
-tr.warning { background-color: #fefcbf; }
-tr.danger { background-color: #feb2b2; }
-tr.default { background-color: #edf2f7; }
-</style>
+<h1 class="page-title">Tareas Correctivas</h1>
 
-<table style="width:100%; border-collapse:collapse; background:white; border-radius:8px; box-shadow:0 0 6px rgba(0,0,0,0.1); margin-top:20px;">
-    <thead>
-        <tr style="background-color:#e3e3e3;">
-            <th style="padding:10px;">ID</th>
-            <th>Equipo</th>
-            <th>Prioridad</th>
-            <th>Fecha creación</th>
-            <th>Fecha límite</th>
-            <th>Días restantes</th>
-            <th>Estado</th>
-            <th>Observaciones</th>
-            <th>Acción</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for t in tareas %}
-        <tr class="{{ t.color or 'default' }}" style="border-bottom:1px solid #ccc;">
-            <form method="POST" action="/tareas/actualizar">
-                <td style="padding:10px;">{{ t.id }}</td>
-                <td>{{ t.equipo }}</td>
-                <td>{{ t.prioridad }}</td>
-                <td>{{ t.fecha_creacion.strftime('%d/%m/%Y') }}</td>
-                <td>{{ t.fecha_limite.strftime('%d/%m/%Y') if t.fecha_limite else '-' }}</td>
-                <td>
-                    {% if t.dias_restantes is not none %}
-                        {% if t.dias_restantes < 0 %}
-                            <b style="color:red">{{ t.dias_restantes }}</b>
+<div class="table-container">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Equipo</th>
+                <th>Prioridad</th>
+                <th>Fecha creación</th>
+                <th>Fecha límite</th>
+                <th>Días restantes</th>
+                <th>Estado</th>
+                <th>Observaciones</th>
+                <th>Acción</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for t in tareas %}
+            <tr class="alert-row-{{ t.color or 'neutral' }}">
+                <form method="POST" action="/tareas/actualizar">
+
+                    <td>{{ t.id }}</td>
+                    <td>{{ t.equipo }}</td>
+                    <td>{{ t.prioridad }}</td>
+
+                    <td>{{ t.fecha_creacion.strftime('%d/%m/%Y') }}</td>
+                    <td>{{ t.fecha_limite.strftime('%d/%m/%Y') if t.fecha_limite else '-' }}</td>
+
+                    <td>
+                        {% if t.dias_restantes is not none %}
+                            {% if t.dias_restantes < 0 %}
+                                <b style="color:red">{{ t.dias_restantes }}</b>
+                            {% else %}
+                                {{ t.dias_restantes }}
+                            {% endif %}
                         {% else %}
-                            {{ t.dias_restantes }}
+                            -
                         {% endif %}
-                    {% else %}
-                        -
-                    {% endif %}
-                </td>
-                <td>
-                    <select name="estado" style="padding:5px; border-radius:4px;">
-                        <option value="Pendiente" {% if t.estado == 'Pendiente' %}selected{% endif %}>Pendiente</option>
-                        <option value="En proceso" {% if t.estado == 'En proceso' %}selected{% endif %}>En proceso</option>
-                        <option value="Completada" {% if t.estado == 'Completada' %}selected{% endif %}>Completada</option>
-                    </select>
-                </td>
-                <td>
-                    <input type="text" name="observaciones" value="{{ t.observaciones or '' }}" 
-                            style="width:100%; padding:5px; border-radius:4px; border:1px solid #ccc;">
-                </td>
-                <td>
-                    <input type="hidden" name="id_tarea" value="{{ t.id }}">
-                    <button type="submit" 
-                            style="background-color:#007bff; color:white; border:none; padding:6px 10px; border-radius:4px; cursor:pointer;">
-                        Guardar
-                    </button>
-                </td>
-            </form>
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
+                    </td>
+
+                    <td>
+                        <select name="estado">
+                            <option value="Pendiente"   {% if t.estado == 'Pendiente' %}selected{% endif %}>Pendiente</option>
+                            <option value="En proceso"  {% if t.estado == 'En proceso' %}selected{% endif %}>En proceso</option>
+                            <option value="Completada"  {% if t.estado == 'Completada' %}selected{% endif %}>Completada</option>
+                        </select>
+                    </td>
+
+                    <td>
+                        <input type="text" name="observaciones" value="{{ t.observaciones or '' }}">
+                    </td>
+
+                    <td >
+                        <input type="hidden" name="id_tarea" value="{{ t.id }}">
+                        <button type="submit" class="btn btn-primary">Guardar</button>
+                    </td>
+
+                </form>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
 
 {% if tareas|length == 0 %}
-    <p style="margin-top:20px;">No hay tareas registradas.</p>
+<p style="margin-top:20px;">No hay tareas registradas.</p>
 {% endif %}
+
 {% endblock %}
