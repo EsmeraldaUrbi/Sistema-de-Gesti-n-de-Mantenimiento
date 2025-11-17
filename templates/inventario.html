@@ -1,14 +1,18 @@
 {% extends "base.html" %}
 {% block content %}
-<h1>Inventario del Laboratorio</h1>
-<div style="margin-bottom: 20px;">
-    <a href="/equipos/nuevo" 
-       style="display:inline-block; background-color:#007bff; color:white; padding:10px 15px; border-radius:6px; text-decoration:none; margin-right:10px;">
+
+<h1 class="titulo-pagina">Inventario del Laboratorio</h1>
+
+<!-- Botón Registrar -->
+<div class="boton-superior">
+    <a href="/equipos/nuevo" class="btn-principal">
         ➕ Registrar Nuevo Equipo
     </a>
 </div>
 
-<table border="1" cellpadding="8" width="100%">
+<!-- Contenedor de tabla -->
+<div class="table-container">
+<table>
     <thead>
         <tr>
             <th>ID</th>
@@ -18,8 +22,10 @@
             <th>Modelo</th>
             <th>Estado</th>
             <th>Ubicación</th>
+            <th>Acciones</th>
         </tr>
     </thead>
+
     <tbody>
         {% for e in equipos %}
         <tr>
@@ -30,8 +36,18 @@
             <td>{{ e.modelo }}</td>
             <td>{{ e.estado }}</td>
             <td>{{ e.ubicacion }}</td>
+            <td>
+                <a href="/equipos/editar/{{ e.id }}" class="accion-editar">Editar</a> |
+                <a href="/equipos/eliminar/{{ e.id }}" 
+                   class="accion-eliminar"
+                   onclick="return confirm('¿Eliminar equipo del inventario?');">
+                   Eliminar
+                </a>
+            </td>
         </tr>
         {% endfor %}
     </tbody>
 </table>
+</div>
+
 {% endblock %}

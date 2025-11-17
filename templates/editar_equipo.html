@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Editar Equipo</h1>
+
+<style>
+form {
+    background: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    max-width: 500px;
+    box-shadow: 0 0 8px rgba(0,0,0,0.1);
+}
+input, select {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+}
+button {
+    margin-top: 15px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+}
+button:hover { background-color: #0056b3; }
+</style>
+
+<form method="POST">
+    
+    <label>Nombre:</label>
+    <input type="text" name="nombre" value="{{ equipo.nombre }}" required>
+
+    <label>Tipo:</label>
+    <select name="id_tipo" required>
+        {% for t in tipos %}
+            <option value="{{ t.id }}" {% if t.id == equipo.id_tipo %}selected{% endif %}>
+                {{ t.nombre }}
+            </option>
+        {% endfor %}
+    </select>
+
+    <label>Marca:</label>
+    <input type="text" name="marca" value="{{ equipo.marca }}">
+
+    <label>Modelo:</label>
+    <input type="text" name="modelo" value="{{ equipo.modelo }}">
+
+    <label>Ubicación:</label>
+    <input type="text" name="ubicacion" value="{{ equipo.ubicacion }}">
+
+    <label>Estado:</label>
+    <select name="estado">
+        <option value="Operativo" {% if equipo.estado == "Operativo" %}selected{% endif %}>Operativo</option>
+        <option value="En mantenimiento" {% if equipo.estado == "En mantenimiento" %}selected{% endif %}>En mantenimiento</option>
+        <option value="Con falla" {% if equipo.estado == "Con falla" %}selected{% endif %}>Con falla</option>
+        <option value="Fuera de servicio" {% if equipo.estado == "Fuera de servicio" %}selected{% endif %}>Fuera de servicio</option>
+    </select>
+
+    <button type="submit">Guardar cambios</button>
+</form>
+
+<a href="/">&larr; Volver</a>
+
+{% endblock %}

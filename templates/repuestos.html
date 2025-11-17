@@ -24,6 +24,7 @@
             <th>Cantidad</th>
             <th>Stock mínimo</th>
             <th>Estado</th>
+            <th>Acciones</th>
         </tr>
     </thead>
     <tbody>
@@ -41,6 +42,10 @@
             <td>{{ r.cantidad }}</td>
             <td>{{ r.stock_minimo }}</td>
             <td><strong>{{ r.mensaje_stock }}</strong></td>
+            <td>
+                <a href="/repuestos/editar/{{ r.id }}">Editar</a> |
+                <a href="/repuestos/eliminar/{{ r.id }}" onclick="return confirm('¿Eliminar repuesto?');" style="color:red;">Eliminar</a>
+            </td>
         </tr>
         {% endfor %}
     </tbody>

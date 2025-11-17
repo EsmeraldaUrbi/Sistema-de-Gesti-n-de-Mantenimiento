@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h1>Editar repuesto</h1>
+
+<form method="POST" style="max-width:500px; background:#fff; padding:20px; border-radius:10px;">
+    <label>Nombre:</label>
+    <input type="text" name="nombre" value="{{ repuesto.nombre }}" required>
+
+    <label>Tipo:</label>
+    <input type="text" name="tipo" value="{{ repuesto.tipo }}" required>
+
+    <label>Cantidad:</label>
+    <input type="number" name="cantidad" min="0" value="{{ repuesto.cantidad }}" required>
+
+    <label>Stock mínimo:</label>
+    <input type="number" name="stock_minimo" min="0" value="{{ repuesto.stock_minimo }}" required>
+
+    <button type="submit">Guardar cambios</button>
+</form>
+
+<a href="/repuestos">← Volver</a>
+
+{% endblock %}
