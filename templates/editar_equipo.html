@@ -34,8 +34,16 @@
         </div>
 
         <div class="form-group">
-            <label>Ubicación:</label>
-            <input type="text" name="ubicacion" value="{{ equipo.ubicacion }}">
+            <label>Categoría:</label>
+            <select name="categoria" required class="form-control" style="width:100%; padding:8px; margin-top:5px;">
+                <option value="Infraestructura" {{ 'selected' if equipo.categoria == 'Infraestructura' else '' }}>Infraestructura</option>
+                <option value="Hardware" {{ 'selected' if equipo.categoria == 'Hardware' else '' }}>Hardware</option>
+                <option value="Cableado" {{ 'selected' if equipo.categoria == 'Cableado' else '' }}>Cableado</option>
+                <option value="Red" {{ 'selected' if equipo.categoria == 'Red' else '' }}>Red</option>
+                <option value="Periférico" {{ 'selected' if equipo.categoria == 'Periférico' else '' }}>Periférico</option>
+                <option value="Accesorio" {{ 'selected' if equipo.categoria == 'Accesorio' else '' }}>Accesorio</option>
+            </select>
+
         </div>
 
         <div class="form-group">

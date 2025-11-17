@@ -21,7 +21,7 @@
             <th>Marca</th>
             <th>Modelo</th>
             <th>Estado</th>
-            <th>Ubicación</th>
+            <th>Categoría</th>
             <th style="text-align:center;">Acciones</th>
         </tr>
     </thead>
@@ -35,7 +35,7 @@
             <td>{{ e.marca }}</td>
             <td>{{ e.modelo }}</td>
             <td>{{ e.estado }}</td>
-            <td>{{ e.ubicacion }}</td>
+            <td>{{ e.categoria }}</td>
             <td class="col-acciones">
                 <a href="/equipos/editar/{{ e.id }}" class="btn-accion btn-editar">Editar</a>
                 <a href="/equipos/eliminar/{{ e.id }} " 

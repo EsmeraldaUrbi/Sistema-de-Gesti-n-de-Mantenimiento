@@ -118,7 +118,7 @@ def logout():
 def index():
     cursor = db.cursor(dictionary=True)
     cursor.execute("""
-        SELECT e.id, e.nombre, t.nombre AS tipo, e.marca, e.modelo, e.estado, e.ubicacion
+        SELECT e.id, e.nombre, t.nombre AS tipo, e.marca, e.modelo, e.estado, e.categoria
         FROM equipos e
         JOIN tipos_equipo t ON e.id_tipo = t.id
     """)
@@ -140,14 +140,14 @@ def editar_equipo(id):
     if request.method == 'POST':
         cursor.execute("""
             UPDATE equipos
-            SET nombre=%s, id_tipo=%s, marca=%s, modelo=%s, ubicacion=%s, estado=%s
+            SET nombre=%s, id_tipo=%s, marca=%s, modelo=%s, categoria=%s, estado=%s
             WHERE id=%s
         """, (
             request.form['nombre'],
             request.form['id_tipo'],
             request.form['marca'],
             request.form['modelo'],
-            request.form['ubicacion'],
+            request.form['categoria'],
             request.form['estado'],
             id
         ))
@@ -194,14 +194,14 @@ def nuevo_equipo():
 
     if request.method == "POST":
         cursor.execute("""
-            INSERT INTO equipos (nombre, id_tipo, marca, modelo, estado, ubicacion)
+            INSERT INTO equipos (nombre, id_tipo, marca, modelo, estado, categoria)
             VALUES (%s, %s, %s, %s, 'Operativo', %s)
         """, (
             request.form['nombre'],
             request.form['id_tipo'],
             request.form['marca'],
             request.form['modelo'],
-            request.form['ubicacion']
+            request.form['categoria']
         ))
         db.commit()
         cursor.close()
