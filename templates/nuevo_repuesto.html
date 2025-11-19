@@ -7,24 +7,58 @@
 
     <form method="POST">
 
+        <!-- Nombre del repuesto -->
         <div class="form-group">
             <label>Nombre del repuesto:</label>
-            <input type="text" name="nombre" required>
+            <input 
+                type="text" 
+                name="nombre" 
+                required
+                minlength="2"
+                maxlength="60"
+                pattern="[A-Za-z0-9áéíóúÁÉÍÓÚñÑ\s\-\_]+"
+                title="Solo letras, números, espacios y guiones. Mínimo 2 caracteres."
+            >
         </div>
 
+        <!-- Tipo -->
         <div class="form-group">
             <label>Tipo o categoría:</label>
-            <input type="text" name="tipo" required>
+            <input 
+                type="text" 
+                name="tipo" 
+                required
+                minlength="2"
+                maxlength="40"
+                pattern="[A-Za-z0-9áéíóúÁÉÍÓÚñÑ\s\-\_]+"
+                title="Ingrese un tipo válido (sin símbolos raros)."
+            >
         </div>
 
+        <!-- Cantidad -->
         <div class="form-group">
             <label>Cantidad inicial:</label>
-            <input type="number" name="cantidad" min="0" required>
+            <input 
+                type="number" 
+                name="cantidad" 
+                min="0" 
+                max="9999"
+                required
+                title="Cantidad debe ser un número mayor o igual a cero."
+            >
         </div>
 
+        <!-- Stock mínimo -->
         <div class="form-group">
             <label>Stock mínimo:</label>
-            <input type="number" name="stock_minimo" min="0" required>
+            <input 
+                type="number" 
+                name="stock_minimo" 
+                min="0" 
+                max="9999"
+                required
+                title="El stock mínimo debe ser un número válido mayor o igual a cero."
+            >
         </div>
 
         <button type="submit" class="btn btn-primary">

@@ -327,7 +327,7 @@ def registrar_falla():
         prioridad = request.form['prioridad']
 
         cursor.execute("INSERT INTO fallas (id_equipo, descripcion) VALUES (%s, %s)",
-                       (id_equipo, descripcion))
+                        (id_equipo, descripcion))
         db.commit()
         id_falla = cursor.lastrowid
 

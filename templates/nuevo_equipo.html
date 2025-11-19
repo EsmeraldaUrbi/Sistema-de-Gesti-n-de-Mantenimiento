@@ -7,11 +7,21 @@
 
     <form method="POST">
 
+        <!-- Nombre -->
         <div class="form-group">
             <label>Nombre del equipo:</label>
-            <input type="text" name="nombre" required>
+            <input 
+                type="text" 
+                name="nombre" 
+                required
+                minlength="2"
+                maxlength="50"
+                pattern="[A-Za-z0-9áéíóúÁÉÍÓÚñÑ\s\-\_]+"
+                title="Solo letras, números y guiones. Mínimo 2 caracteres."
+            >
         </div>
 
+        <!-- Tipo -->
         <div class="form-group">
             <label>Tipo de equipo:</label>
             <select name="id_tipo" required>
@@ -22,19 +32,39 @@
             </select>
         </div>
 
+        <!-- Marca -->
         <div class="form-group">
             <label>Marca:</label>
-            <input type="text" name="marca">
+            <input 
+                type="text" 
+                name="marca"
+                maxlength="40"
+                pattern="[A-Za-z0-9áéíóúÁÉÍÓÚñÑ\s\-\_]*"
+                title="Solo letras, números y guiones (opcional)."
+            >
         </div>
 
+        <!-- Modelo -->
         <div class="form-group">
             <label>Modelo:</label>
-            <input type="text" name="modelo">
+            <input 
+                type="text" 
+                name="modelo"
+                maxlength="40"
+                pattern="[A-Za-z0-9\s\-\_\.]*"
+                title="Modelo válido: letras, números, puntos o guiones."
+            >
         </div>
 
+        <!-- Categoría -->
         <div class="form-group">
             <label>Categoría:</label>
-            <select name="categoria" required class="form-control" style="width:100%; padding:8px; margin-top:5px;">
+            <select 
+                name="categoria" 
+                required 
+                class="form-control"
+                style="width:100%; padding:8px; margin-top:5px;"
+            >
                 <option value="">Seleccione una categoría...</option>
                 <option value="Infraestructura">Infraestructura</option>
                 <option value="Hardware">Hardware</option>
@@ -43,7 +73,6 @@
                 <option value="Periférico">Periférico</option>
                 <option value="Accesorio">Accesorio</option>
             </select>
-
         </div>
 
         <button type="submit" class="btn btn-primary">

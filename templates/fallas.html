@@ -20,7 +20,15 @@
         <!-- Descripción -->
         <div class="form-group stylish-input">
             <label for="descripcion">Descripción de la falla</label>
-            <textarea name="descripcion" rows="4" required></textarea>
+            <textarea 
+                name="descripcion" 
+                rows="4" 
+                required
+                minlength="5"
+                maxlength="300"
+                pattern="[A-Za-z0-9áéíóúÁÉÍÓÚñÑ.,;\s\-()]+"
+                title="Describe la falla usando letras, números y signos básicos. Mínimo 5 caracteres."
+            ></textarea>
         </div>
 
         <!-- Prioridad -->
