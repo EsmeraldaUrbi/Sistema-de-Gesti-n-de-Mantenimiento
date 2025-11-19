@@ -121,6 +121,8 @@ def index():
         SELECT e.id, e.nombre, t.nombre AS tipo, e.marca, e.modelo, e.estado, e.categoria
         FROM equipos e
         JOIN tipos_equipo t ON e.id_tipo = t.id
+        ORDER BY e.id ASC;
+
     """)
     equipos = cursor.fetchall()
     cursor.close()
@@ -331,6 +333,13 @@ def registrar_falla():
         db.commit()
         id_falla = cursor.lastrowid
 
+        cursor.execute("""
+        UPDATE equipos
+        SET estado = 'Con falla'
+        WHERE id = %s
+        """, (id_equipo,))
+        db.commit()
+
         dias = 2 if prioridad == 'Alta' else (14 if prioridad == 'Media' else 60)
         fecha_limite = datetime.now() + timedelta(days=dias)
 
@@ -447,6 +456,20 @@ def actualizar_tarea():
         WHERE id=%s
     """, (nuevo_estado, observaciones, id_tarea))
     db.commit()
+
+    # Si tarea pasa a En proceso → cambiar equipo a "En mantenimiento"
+    if nuevo_estado == "En proceso":
+        cursor.execute("""
+            SELECT f.id_equipo
+            FROM tareas t
+            JOIN fallas f ON t.id_falla = f.id
+            WHERE t.id = %s
+        """, (id_tarea,))
+        id_equipo = cursor.fetchone()[0]
+
+        cursor.execute("UPDATE equipos SET estado='En mantenimiento' WHERE id=%s", (id_equipo,))
+        db.commit()
+
 
     if nuevo_estado == 'Completada':
 
