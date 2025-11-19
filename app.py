@@ -129,7 +129,7 @@ def index():
 
 
 # ---------------------------------------------------------
-# EDITAR EQUIPO ⭐ NUEVO ⭐
+# EDITAR EQUIPO 
 # ---------------------------------------------------------
 @app.route('/equipos/editar/<int:id>', methods=['GET', 'POST'])
 @login_requerido(['Administrador'])
@@ -334,11 +334,40 @@ def registrar_falla():
         dias = 2 if prioridad == 'Alta' else (14 if prioridad == 'Media' else 60)
         fecha_limite = datetime.now() + timedelta(days=dias)
 
+# === ASIGNACIÓN AUTOMÁTICA DE TÉCNICO ===
+
+# Obtener técnicos disponibles
+        cursor.execute("SELECT id FROM usuarios WHERE rol = 'Técnico'")
+        tecnicos = cursor.fetchall()
+
+        id_tecnico_asignado = None
+
+        if tecnicos:
+            # Cargar número de tareas activas por técnico
+            cargas = []
+
+            for t in tecnicos:
+                cursor.execute("""
+                    SELECT COUNT(*) AS total
+                    FROM tareas
+                    WHERE id_tecnico = %s AND estado <> 'Completada'
+                """, (t['id'],))
+                carga = cursor.fetchone()['total']
+                cargas.append((t['id'], carga))
+
+            # Ordenar por menor carga y luego por ID más bajo
+            cargas.sort(key=lambda x: (x[1], x[0]))
+
+            # Seleccionar técnico
+            id_tecnico_asignado = cargas[0][0]
+
+        # Crear tarea con técnico asignado
         cursor.execute("""
-            INSERT INTO tareas (id_falla, prioridad, fecha_limite)
-            VALUES (%s, %s, %s)
-        """, (id_falla, prioridad, fecha_limite))
+            INSERT INTO tareas (id_falla, prioridad, fecha_limite, id_tecnico)
+            VALUES (%s, %s, %s, %s)
+        """, (id_falla, prioridad, fecha_limite, id_tecnico_asignado))
         db.commit()
+
 
         cursor.close()
         return redirect(url_for('registrar_falla'))
@@ -365,12 +394,15 @@ def ver_tareas():
             t.fecha_creacion,
             t.fecha_limite,
             t.estado,
-            t.observaciones
+            t.observaciones,
+            u.nombre AS tecnico
         FROM tareas t
         JOIN fallas f ON t.id_falla = f.id
         JOIN equipos e ON f.id_equipo = e.id
+        LEFT JOIN usuarios u ON t.id_tecnico = u.id
         ORDER BY t.fecha_creacion DESC;
     """)
+
     tareas = cursor.fetchall()
     cursor.close()
 

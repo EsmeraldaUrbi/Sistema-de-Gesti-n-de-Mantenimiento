@@ -14,6 +14,7 @@
                 <th>Fecha límite</th>
                 <th>Días restantes</th>
                 <th>Estado</th>
+                <th style="text-align: center;">Técnico asignado</th>
                 <th>Observaciones</th>
                 <th>Acción</th>
             </tr>
@@ -42,7 +43,6 @@
                             -
                         {% endif %}
                     </td>
-
                     <td>
                         <select name="estado">
                             <option value="Pendiente"   {% if t.estado == 'Pendiente' %}selected{% endif %}>Pendiente</option>
@@ -50,7 +50,7 @@
                             <option value="Completada"  {% if t.estado == 'Completada' %}selected{% endif %}>Completada</option>
                         </select>
                     </td>
-
+                    <td style="text-align: center;">{{ t.tecnico or "Sin asignar" }}</td>
                     <td>
                         <input type="text" name="observaciones" value="{{ t.observaciones or '' }}">
                     </td>
