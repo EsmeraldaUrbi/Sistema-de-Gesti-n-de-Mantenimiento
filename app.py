@@ -409,11 +409,17 @@ def ver_tareas():
     hoy = datetime.now()
 
     for t in tareas:
-        if t['fecha_limite']:
-            t['dias_restantes'] = (t['fecha_limite'] - hoy).days
-        else:
-            t['dias_restantes'] = None
 
+        # SI LA TAREA ESTÁ COMPLETADA → NO CALCULAR DÍAS RESTANTES
+        if t['estado'] == 'Completada':
+            t['dias_restantes'] = None
+        else:
+            if t['fecha_limite']:
+                t['dias_restantes'] = (t['fecha_limite'] - hoy).days
+            else:
+                t['dias_restantes'] = None
+
+        # COLORES
         if t['estado'] == 'Completada':
             t['color'] = 'ok'
         elif t['estado'] == 'En proceso':
@@ -422,6 +428,7 @@ def ver_tareas():
             t['color'] = 'danger'
         else:
             t['color'] = 'normal'
+
 
     return render_template('tareas.html', tareas=tareas)
 
